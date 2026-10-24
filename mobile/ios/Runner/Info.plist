@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>CFBundleDisplayName</key>
+	<string>Cat &amp; Mouse</string>
+	<key>CFBundleExecutable</key>
+	<string>$(EXECUTABLE_NAME)</string>
+	<key>CFBundleIdentifier</key>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleName</key>
+	<string>cat_and_mouse</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<key>CFBundleShortVersionString</key>
+	<string>$(FLUTTER_BUILD_NAME)</string>
+	<key>CFBundleSignature</key>
+	<string>????</string>
+	<key>CFBundleVersion</key>
+	<string>$(FLUTTER_BUILD_NUMBER)</string>
+	<key>LSRequiresIPhoneOS</key>
+	<true/>
+	<key>UILaunchStoryboardName</key>
+	<string>LaunchScreen</string>
+	<key>UIMainStoryboardFile</key>
+	<string>Main</string>
+	<key>UISupportedInterfaceOrientations</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+	</array>
+
+	<!-- PERMISSIONS APPLE GÉOLOCALISATION -->
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Cat &amp; Mouse a besoin de votre position GPS pour afficher la minimap, vérifier que vous êtes dans la zone de jeu et gérer les pings radar.</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>La géolocalisation en arrière-plan est indispensable pour vous avertir par vibration sonore si vous sortez de la zone pendant que vous courez avec le téléphone en poche.</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Nécessaire pour le suivi continu de la zone de jeu en temps réel.</string>
+
+	<!-- PERMISSIONS APPLE BLUETOOTH LOW ENERGY (TAG & ÉLIMINATION) -->
+	<key>NSBluetoothAlwaysUsageDescription</key>
+	<string>Le Bluetooth Low Energy (BLE) est nécessaire pour mesurer la proximité physique (&lt; 3 mètres) entre les Chats et les Souris et valider l'élimination.</string>
+	<key>NSBluetoothPeripheralUsageDescription</key>
+	<string>Nécessaire pour que votre iPhone diffuse son identifiant de Souris aux téléphones des Chats à proximité.</string>
+
+	<!-- MODES D'ARRIÈRE-PLAN CRITIQUES (BACKGROUND MODES) -->
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>location</string>
+		<string>bluetooth-central</string>
+		<string>bluetooth-peripheral</string>
+		<string>audio</string>
+	</array>
+
+	<key>UIViewControllerBasedStatusBarAppearance</key>
+	<false/>
+	<key>CADisableMinimumFrameDurationOnPhone</key>
+	<true/>
+	<key>UIApplicationSupportsIndirectInputEvents</key>
+	<true/>
+</dict>
+</plist>

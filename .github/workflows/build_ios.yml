@@ -1,0 +1,47 @@
+name: Build iOS IPA (No Mac Required)
+
+on:
+  workflow_dispatch: # Permet de lancer le build en 1 clic depuis l'interface GitHub
+  push:
+    branches: [ main, master ]
+
+jobs:
+  build-ios:
+    name: 🍏 Compiler l'application iOS
+    runs-on: macos-latest
+
+    steps:
+      - name: 📥 Récupérer le code source
+        uses: actions/checkout@v4
+
+      - name: 🎯 Installer Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.24.x'
+          channel: 'stable'
+          cache: true
+
+      - name: 📦 Récupérer les dépendances Flutter
+        run: |
+          cd mobile
+          flutter pub get
+
+      - name: 🛠️ Compiler l'application iOS (Release sans signature)
+        run: |
+          cd mobile
+          flutter build ios --release --no-codesign
+
+      - name: 📦 Packager le fichier .IPA pour Sideloadly / AltStore
+        run: |
+          cd mobile
+          mkdir -p Payload
+          cp -r build/ios/iphoneos/Runner.app Payload/
+          zip -r cat_and_mouse.ipa Payload
+          mv cat_and_mouse.ipa ../
+
+      - name: 📤 Mettre à disposition le fichier .IPA en téléchargement
+        uses: actions/upload-artifact@v4
+        with:
+          name: cat_and_mouse_ios_ipa
+          path: cat_and_mouse.ipa
+          retention-days: 7

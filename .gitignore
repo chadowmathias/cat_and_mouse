@@ -1,0 +1,28 @@
+# Node.js & Backend
+node_modules/
+backend/dist/
+*.log
+.env
+.env.local
+
+# Flutter & Mobile
+mobile/.dart_tool/
+mobile/.flutter-plugins
+mobile/.flutter-plugins-dependencies
+mobile/.packages
+mobile/build/
+mobile/.pub-cache/
+mobile/.pub/
+mobile/ios/Pods/
+mobile/ios/.symlinks/
+mobile/ios/Flutter/Flutter.podspec
+mobile/ios/Flutter/Generated.xcconfig
+mobile/ios/Flutter/app.framework
+mobile/ios/Flutter/Flutter.framework
+
+# OS & IDE
+.vscode/
+.idea/
+*.iml
+.DS_Store
+Thumbs.db

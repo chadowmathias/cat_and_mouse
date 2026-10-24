@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: cat-and-mouse-server
+    runtime: node
+    plan: free
+    region: frankfurt
+    buildCommand: npm install && npm run build
+    startCommand: npm run start
+    envVars:
+      - key: PORT
+        value: 10000
