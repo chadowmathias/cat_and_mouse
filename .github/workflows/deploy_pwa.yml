@@ -1,0 +1,42 @@
+name: Deploy PWA Web App (Play in Safari & Install on iPhone)
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main, master ]
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-deploy-web:
+    name: 🌐 Compiler et Héberger la PWA (Web)
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📥 Récupérer le code source
+        uses: actions/checkout@v4
+
+      - name: 🎯 Installer Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.24.x'
+          channel: 'stable'
+          cache: true
+
+      - name: 🛠️ Générer les fichiers Web PWA
+        run: |
+          cd mobile
+          flutter create . --platforms=web
+          flutter pub get
+
+      - name: 🏗️ Compiler pour le Web (Release)
+        run: |
+          cd mobile
+          flutter build web --release --base-href "/cat_and_mouse/"
+
+      - name: 🚀 Déployer sur GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./mobile/build/web

@@ -1,7 +1,7 @@
 name: Build iOS IPA (No Mac Required)
 
 on:
-  workflow_dispatch: # Permet de lancer le build en 1 clic depuis l'interface GitHub
+  workflow_dispatch:
   push:
     branches: [ main, master ]
 
@@ -21,9 +21,10 @@ jobs:
           channel: 'stable'
           cache: true
 
-      - name: 📦 Récupérer les dépendances Flutter
+      - name: 🛠️ Générer l'armature Xcode iOS
         run: |
           cd mobile
+          flutter create . --platforms=ios --org com.game
           flutter pub get
 
       - name: 🛠️ Compiler l'application iOS (Release sans signature)
