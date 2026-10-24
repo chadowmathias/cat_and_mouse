@@ -24,19 +24,28 @@ jobs:
           channel: 'stable'
           cache: true
 
-      - name: 🛠️ Générer les fichiers Web PWA
+      - name: 🛠️ Créer un projet Flutter propre avec support Web
         run: |
-          cd mobile
-          flutter create . --platforms=web
+          # Projet Flutter vierge avec structure web générée
+          flutter create --platforms=web --org com.catmouse catmouse_web
+          
+          # Copier nos fichiers source
+          cp -r mobile/lib/* catmouse_web/lib/
+          cp mobile/pubspec.yaml catmouse_web/pubspec.yaml
+          
+          # Copier le manifest PWA
+          cp mobile/web/manifest.json catmouse_web/web/manifest.json
+          
+          cd catmouse_web
           flutter pub get
 
       - name: 🏗️ Compiler pour le Web (Release)
         run: |
-          cd mobile
+          cd catmouse_web
           flutter build web --release --base-href "/cat_and_mouse/"
 
       - name: 🚀 Déployer sur GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./mobile/build/web
+          publish_dir: ./catmouse_web/build/web

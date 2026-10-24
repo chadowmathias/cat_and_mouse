@@ -21,20 +21,29 @@ jobs:
           channel: 'stable'
           cache: true
 
-      - name: 🛠️ Générer l'armature Xcode iOS
+      - name: 🛠️ Créer un projet Flutter propre avec Xcode
         run: |
-          cd mobile
-          flutter create . --platforms=ios --org com.game
+          # Créer un projet Flutter vierge avec toute la structure iOS générée
+          flutter create --platforms=ios --org com.catmouse catmouse_build
+          
+          # Copier nos fichiers source dans le projet généré
+          cp -r mobile/lib/* catmouse_build/lib/
+          cp mobile/pubspec.yaml catmouse_build/pubspec.yaml
+          
+          # Copier les permissions iOS (Info.plist)
+          cp mobile/ios/Runner/Info.plist catmouse_build/ios/Runner/Info.plist
+          
+          cd catmouse_build
           flutter pub get
 
       - name: 🛠️ Compiler l'application iOS (Release sans signature)
         run: |
-          cd mobile
+          cd catmouse_build
           flutter build ios --release --no-codesign
 
       - name: 📦 Packager le fichier .IPA pour Sideloadly / AltStore
         run: |
-          cd mobile
+          cd catmouse_build
           mkdir -p Payload
           cp -r build/ios/iphoneos/Runner.app Payload/
           zip -r cat_and_mouse.ipa Payload
